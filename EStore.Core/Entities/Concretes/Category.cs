@@ -6,9 +6,8 @@ public class Category : BaseEntity {
 
     // Columns
 
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public string? ImageUrl { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
 
     // Navigation Property
 

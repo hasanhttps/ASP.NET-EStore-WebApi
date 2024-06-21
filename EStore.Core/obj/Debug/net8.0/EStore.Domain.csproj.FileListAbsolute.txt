@@ -1,0 +1,14 @@
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\bin\Debug\net8.0\EStore.Domain.deps.json
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\bin\Debug\net8.0\EStore.Domain.runtimeconfig.json
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\bin\Debug\net8.0\EStore.Domain.dll
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\bin\Debug\net8.0\EStore.Domain.pdb
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.AssemblyInfoInputs.cache
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.AssemblyInfo.cs
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.csproj.CoreCompileInputs.cache
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.sourcelink.json
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.dll
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\refint\EStore.Domain.dll
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.pdb
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\EStore.Domain.genruntimeconfig.cache
+C:\Users\hasan\source\repos\EStore WebApi\EStore.Core\obj\Debug\net8.0\ref\EStore.Domain.dll
