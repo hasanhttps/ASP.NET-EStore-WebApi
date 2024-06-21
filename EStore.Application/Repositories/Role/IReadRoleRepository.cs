@@ -6,4 +6,6 @@ namespace EStore.Application.Repositories;
 public interface IReadRoleRepository : IReadGenericRepository<Role> {
 
     // Methods
+
+    Task<Role?> GetByRoleName(string roleName);
 }

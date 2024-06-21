@@ -15,10 +15,12 @@ public class WriteGenericRepository<T> : GenericRepository<T>, IWriteGenericRepo
 
     public async Task AddAsync(T entity) {
         await _table.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task AddRangeAsync(IEnumerable<T> entities) {
         await _table.AddRangeAsync(entities);
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id) {
@@ -26,10 +28,12 @@ public class WriteGenericRepository<T> : GenericRepository<T>, IWriteGenericRepo
         var entity = await _table.FirstOrDefaultAsync(x => x.Id == id);
         if (entity != null)
             _table.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(T entity) {
         _table.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task SaveChangeAsync() {
@@ -38,5 +42,6 @@ public class WriteGenericRepository<T> : GenericRepository<T>, IWriteGenericRepo
 
     public async Task UpdateAsync(T entity) {
         _table.Update(entity);
+        await _context.SaveChangesAsync();
     }
 }
