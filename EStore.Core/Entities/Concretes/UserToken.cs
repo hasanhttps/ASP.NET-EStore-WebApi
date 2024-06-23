@@ -6,6 +6,12 @@ public class UserToken : BaseEntity {
 
     // Columns
 
+    // Acces Token
+
+    public string? AccesToken { get; set; }
+    public DateTime? AccesTokenExpireTime { get; set; }
+    public DateTime? AccesTokenCreateTime { get; set; } = DateTime.Now;
+
     // Refresh Token
 
     public string? RefreshToken { get; set; }
@@ -24,7 +30,7 @@ public class UserToken : BaseEntity {
     public DateTime? ConfirmEmailTokenExpireTime { get; set; }
     public DateTime? ConfirmEmailTokenCreateTime { get; set; } = DateTime.Now;
 
-    // Foreign Key
+    // Navigation Property
 
-    public int UserId { get; set; }
+    public virtual User? User { get; set; }
 }

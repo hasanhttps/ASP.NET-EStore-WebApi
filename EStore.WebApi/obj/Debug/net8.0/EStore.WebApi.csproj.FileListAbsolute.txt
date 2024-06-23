@@ -146,3 +146,4 @@ C:\Users\hasan\source\repos\EStore WebApi\EStore.WebApi\obj\Debug\net8.0\refint\
 C:\Users\hasan\source\repos\EStore WebApi\EStore.WebApi\obj\Debug\net8.0\EStore.WebApi.pdb
 C:\Users\hasan\source\repos\EStore WebApi\EStore.WebApi\obj\Debug\net8.0\EStore.WebApi.genruntimeconfig.cache
 C:\Users\hasan\source\repos\EStore WebApi\EStore.WebApi\obj\Debug\net8.0\ref\EStore.WebApi.dll
+C:\Users\hasan\source\repos\EStore WebApi\EStore.WebApi\bin\Debug\net8.0\Newtonsoft.Json.dll

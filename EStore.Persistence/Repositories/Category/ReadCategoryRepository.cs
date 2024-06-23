@@ -14,6 +14,15 @@ public class ReadCategoryRepository : ReadGenericRepository<Category>, IReadCate
 
     // Methods
 
+    public async Task<Category?> GetCategoryByName(string name) {
+        return await _table.FirstOrDefaultAsync(p => p.Name == name);
+    }
+
+    public async Task<IEnumerable<Product>?> GetAllProductsByName(string name) {
+        var category = await _table.FirstOrDefaultAsync(p => p.Name == name);
+        return category.Products;
+    }
+
     public async Task<IEnumerable<Product>> GetAllProductsById(int categoryId) {
         var products = _table.Include(x => x.Products).FirstOrDefault(x => x.Id == categoryId)?.Products;
         return products;

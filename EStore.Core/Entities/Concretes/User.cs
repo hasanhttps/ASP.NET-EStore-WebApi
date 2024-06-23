@@ -22,6 +22,6 @@ public class User : BaseEntity {
 
     // Navigation Properties
 
-    public virtual Role? Role { get; set; }
-    public virtual UserToken? UserToken { get; set; }
+    public virtual Role Role { get; set; }
+    public virtual UserToken UserToken { get; set; }
 }

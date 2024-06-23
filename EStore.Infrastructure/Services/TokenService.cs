@@ -24,7 +24,7 @@ public class TokenService : ITokenService {
 
     // Methods
 
-    public string CreateAccessToken(User user) {
+    public TokenCredentials CreateAccessToken(User user) {
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
         var tokenDescription = new SecurityTokenDescriptor() {
@@ -44,13 +44,19 @@ public class TokenService : ITokenService {
         var tokenHandler = new JwtSecurityTokenHandler();
         SecurityToken? token = tokenHandler.CreateToken(tokenDescription);
 
+        var accessToken = new TokenCredentials()
+        {
+            Token = tokenHandler.WriteToken(token),
+            ExpireTime = DateTime.UtcNow.AddMinutes(20),
+            CreateTime = DateTime.UtcNow
+        };
 
-        return tokenHandler.WriteToken(token);
+        return accessToken;
     }
 
-    public RefreshToken CreateRefreshToken() {
+    public TokenCredentials CreateRefreshToken() {
 
-        var refreshToken = new RefreshToken() {
+        var refreshToken = new TokenCredentials() {
             Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
             ExpireTime = DateTime.UtcNow.AddMinutes(30),
             CreateTime = DateTime.UtcNow
@@ -58,9 +64,9 @@ public class TokenService : ITokenService {
         return refreshToken;
     }
 
-    public RefreshToken CreateRepasswordToken() {
+    public TokenCredentials CreateRepasswordToken() {
 
-        var repasswordToken = new RefreshToken() {
+        var repasswordToken = new TokenCredentials() {
             Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
             ExpireTime = DateTime.UtcNow.AddMinutes(30),
             CreateTime = DateTime.UtcNow
@@ -68,9 +74,9 @@ public class TokenService : ITokenService {
         return repasswordToken;
     }
 
-    public RefreshToken CreateConfirmEmailToken() {
+    public TokenCredentials CreateConfirmEmailToken() {
 
-        var confirmEmailToken = new RefreshToken() {
+        var confirmEmailToken = new TokenCredentials() {
             Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
             ExpireTime = DateTime.UtcNow.AddMinutes(30),
             CreateTime = DateTime.UtcNow

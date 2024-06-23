@@ -60,6 +60,9 @@ public class AuthController : ControllerBase {
             return BadRequest("Invalid password");
 
         var accessToken = _tokenService.CreateAccessToken(user);
+        user.UserToken.AccesToken = accessToken.Token;
+        user.UserToken.AccesTokenExpireTime = accessToken.ExpireTime;
+        user.UserToken.AccesTokenCreateTime = accessToken.CreateTime;
 
         var refreshToken = _tokenService.CreateRefreshToken();
         SetRefreshToken(user, refreshToken);
@@ -90,7 +93,7 @@ public class AuthController : ControllerBase {
 
 
     // Helper Method. SetRefreshToken
-    private void SetRefreshToken(User user, RefreshToken refreshToken) {
+    private void SetRefreshToken(User user, TokenCredentials refreshToken) {
 
         var cookieOptions = new CookieOptions() {
             HttpOnly = true,
@@ -98,14 +101,6 @@ public class AuthController : ControllerBase {
         };
 
         Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
-
-        if (user.UserToken == null) {
-            var newtoken = new UserToken();
-            newtoken.UserId = user.Id;
-            _writeUserTokenRepository.AddAsync(newtoken);
-            user.UserToken = newtoken;
-            user.UserTokenId = newtoken.Id;
-        }
 
         user.UserToken.RefreshToken = refreshToken.Token;
         user.UserToken.RefreshTokenCreateTime = refreshToken.CreateTime;
@@ -124,7 +119,7 @@ public class AuthController : ControllerBase {
         if (user is not null)
             return BadRequest("User already exists");
 
-        var role = await _readRoleRepository.GetByRoleName(UserDTO.Role);
+        var role = await _readRoleRepository.GetByRoleName("Customer");
 
         var newUserToken = new UserToken();
         await _writeUserTokenRepository.AddAsync(newUserToken);
@@ -133,6 +128,8 @@ public class AuthController : ControllerBase {
 
 
         var newUser = new User() {
+            FirstName = UserDTO.FirstName, 
+            LastName = UserDTO.LastName,
             UserName = UserDTO.UserName,
             Email = UserDTO.Email,
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(UserDTO.Password)),
@@ -140,9 +137,16 @@ public class AuthController : ControllerBase {
             RoleId = role!.Id,
             Role = role,
             ConfirmEmail = false,
-            UserTokenId = newUserToken.Id,
             UserToken = newUserToken
         };
+
+        if (newUser.UserToken == null) {
+            var newtoken = new UserToken();
+            newtoken.User = newUser;
+            await _writeUserTokenRepository.AddAsync(newtoken);
+            newUser.UserToken = newtoken;
+            newUser.UserTokenId = newtoken.Id;
+        }
 
         var confirmEmailToken = _tokenService.CreateConfirmEmailToken();
         var actionUrl = $@"https://localhost:5046/api/Auth/ConfirmEmail?token={confirmEmailToken.Token}";

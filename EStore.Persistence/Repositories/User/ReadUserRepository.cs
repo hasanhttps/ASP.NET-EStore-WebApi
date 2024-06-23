@@ -22,12 +22,16 @@ public class ReadUserRepository : ReadGenericRepository<User>, IReadUserReposito
         return await _table.SingleOrDefaultAsync(p => p.UserToken.RefreshToken == refreshToken);
     }
 
-    public Task<User?> GetUserByRePasswordToken(string rePasswordToken) {
-        return _table.FirstOrDefaultAsync(p => p.UserToken.RePasswordToken == rePasswordToken);
+    public async Task<User?> GetUserByRePasswordToken(string rePasswordToken) {
+        return await _table.FirstOrDefaultAsync(p => p.UserToken.RePasswordToken == rePasswordToken);
     }
 
-    public Task<User?> GetUserByConfirmEmailToken(string confirmEmailToken) {
-        return _table.FirstOrDefaultAsync(p => p.UserToken.ConfirmEmailToken == confirmEmailToken);
+    public async Task<User?> GetUserByConfirmEmailToken(string confirmEmailToken) {
+        return await _table.FirstOrDefaultAsync(p => p.UserToken.ConfirmEmailToken == confirmEmailToken);
+    }
+
+    public async Task<User?> GetUserByAccessToken(string accessToken) {
+        return await _table.FirstOrDefaultAsync(p => p.UserToken.AccesToken == accessToken);
     }
 
     public async Task<User?> GetUserByUserName(string userName) {

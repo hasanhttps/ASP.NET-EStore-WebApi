@@ -7,5 +7,7 @@ public interface IReadCategoryRepository : IReadGenericRepository<Category> {
 
     // Methods
 
+    Task<Category?> GetCategoryByName(string name);
+    Task<IEnumerable<Product>?> GetAllProductsByName(string name);
     Task<IEnumerable<Product>> GetAllProductsById(int id);
 }

@@ -4,8 +4,8 @@ using EStore.Domain.Entities.Concretes;
 namespace EStore.Application.Services;
 
 public interface ITokenService {
-    string CreateAccessToken(User user);
-    RefreshToken CreateRefreshToken();
-    RefreshToken CreateRepasswordToken();
-    RefreshToken CreateConfirmEmailToken();
+    TokenCredentials CreateAccessToken(User user);
+    TokenCredentials CreateRefreshToken();
+    TokenCredentials CreateRepasswordToken();
+    TokenCredentials CreateConfirmEmailToken();
 }

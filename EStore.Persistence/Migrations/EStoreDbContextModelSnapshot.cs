@@ -242,14 +242,12 @@ namespace EStore.Persistence.Migrations
                     b.Property<int>("UserTokenId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserTokenId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserTokenId1");
+                    b.HasIndex("UserTokenId")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -261,6 +259,15 @@ namespace EStore.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccesToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("AccesTokenCreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("AccesTokenExpireTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConfirmEmailToken")
                         .HasColumnType("nvarchar(max)");
@@ -297,9 +304,6 @@ namespace EStore.Persistence.Migrations
 
                     b.Property<DateTime?>("RefreshTokenExpireTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -345,8 +349,8 @@ namespace EStore.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("EStore.Domain.Entities.Concretes.UserToken", "UserToken")
-                        .WithMany()
-                        .HasForeignKey("UserTokenId1")
+                        .WithOne("User")
+                        .HasForeignKey("EStore.Domain.Entities.Concretes.User", "UserTokenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -373,6 +377,11 @@ namespace EStore.Persistence.Migrations
             modelBuilder.Entity("EStore.Domain.Entities.Concretes.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("EStore.Domain.Entities.Concretes.UserToken", b =>
+                {
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
