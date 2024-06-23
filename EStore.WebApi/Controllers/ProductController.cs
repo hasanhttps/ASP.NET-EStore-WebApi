@@ -70,7 +70,6 @@ public class ProductController : ControllerBase {
 
         var products = result.ToList();
         var allProductVm = products.Select(p => new GetProductVM() {
-            Id = p.Id,
             Name = p.Name,
             Price = p.Price,
             Description = p.Description,
@@ -94,7 +93,6 @@ public class ProductController : ControllerBase {
 
         var products = result.ToList();
         var allProductVm = products.Select(p => new GetProductVM() {
-            Id = p.Id,
             Name = p.Name,
             Price = p.Price,
             Description = p.Description,
@@ -125,7 +123,6 @@ public class ProductController : ControllerBase {
 
             var product = result.ToList().FirstOrDefault(p => p.Id == id);
             var productVM = new GetProductVM() {
-                Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
                 Description = product.Description,
