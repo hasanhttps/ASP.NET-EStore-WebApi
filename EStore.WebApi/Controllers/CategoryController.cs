@@ -53,18 +53,27 @@ public class CategoryController : ControllerBase {
     #region GetAll
 
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll() {
-        var result = await _readCategoryRepository.GetAllAsync();
-        if (result == null)
-            return NotFound("Category was not found");
+    public async Task<IActionResult> GetAll([FromQuery] string accesstoken) {
 
-        var categories = result.ToList();
-        var allCategoriesVM = categories.Select(p => new GetCategoryVM() {
-            Name = p.Name,
-            Description = p.Description
-        }).ToList();
+        var user = await _readUserRepository.GetUserByAccessToken(accesstoken);
 
-        return Ok(allCategoriesVM);
+        if (user == null)
+            return BadRequest("Access Token is not proper");
+
+        if (user.Role.RoleName == "Admin" || user.Role.RoleName == "SuperAdmin" || user.Role.RoleName == "Cashier") {
+            var result = await _readCategoryRepository.GetAllAsync();
+            if (result == null)
+                return NotFound("Category was not found");
+
+            var categories = result.ToList();
+            var allCategoriesVM = categories.Select(p => new GetCategoryVM() {
+                Name = p.Name,
+                Description = p.Description
+            }).ToList();
+
+            return Ok(allCategoriesVM);
+        }
+        else return Unauthorized("You don't have access to this operation!");
     }
 
     #endregion
