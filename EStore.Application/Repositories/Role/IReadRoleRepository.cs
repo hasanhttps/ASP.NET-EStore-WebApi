@@ -8,4 +8,5 @@ public interface IReadRoleRepository : IReadGenericRepository<Role> {
     // Methods
 
     Task<Role?> GetByRoleName(string roleName);
+    Task<IEnumerable<User>?> GetUsersByRoleName(string roleName);
 }

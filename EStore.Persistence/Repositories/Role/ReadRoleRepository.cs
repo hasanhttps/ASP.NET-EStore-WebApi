@@ -17,4 +17,9 @@ public class ReadRoleRepository : ReadGenericRepository<Role>, IReadRoleReposito
     public async Task<Role?> GetByRoleName(string roleName) {
         return await _table.Where(p => p.RoleName == roleName).FirstOrDefaultAsync();
     }
+
+    public async Task<IEnumerable<User>?> GetUsersByRoleName(string roleName) {
+        var role = await GetByRoleName(roleName);
+        return role.Users;
+    }
 }
